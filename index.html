@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vue Pomodoro</title>
+  <link rel="stylesheet" href="https://s3-us-west-2.amazonaws.com/jbivenscp/bitzy.min.css">
+  <link rel="stylesheet" href="main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.20/vue.min.js"></script>
+</head>
+
+<body>
+  <div id="app">
+
+    <div class="column-3"></div>
+
+    <div class="column-6 text-center" v-show="!breaktime">
+      <div class="timer">
+        <h1>Pomodoro Timer</h1>
+        <div>
+          <h1>{{ time | minutesAndSeconds }}</h1>
+          <button @click="start" v-show="!started" class="primary">Start</button>
+          <button @click="pause" v-show="started" class="stop">Pause</button>
+          <div class="shell">
+            <div :style="{  width: time / initial * 100 + '%' }"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="column-6 text-center" v-show="breaktime">
+      <div class="timer">
+        <h1>Breaktime!</h1>
+        <div>
+          <h1>{{ time | minutesAndSeconds }}</h1>
+          <button @click="start" v-show="!started" class="primary">Start</button>
+          <button @click="pause" v-show="started" class="stop">Pause</button>
+          <div class="shell break">
+            <div :style="{  width: time / initial * 100 + '%', background: 'lightgreen'  }"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <script src="main.js"></script>
+</body>
+
+</html>
