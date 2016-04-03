@@ -2,6 +2,7 @@
 Yet another Pomodoro timer, but this one's wrapped in [Electron](https://github.com/atom/electron).
 
 To use, type this in your terminal:
+
 1. `git clone https://github.com/joshbivens/VuePomodoro.git && cd VuePomodoro`
 
 2. `npm install`
