@@ -1,8 +1,8 @@
 new Vue({
   el: "#app",
   data: {
-    time: 10,
-    initial: 10,
+    time: 1500,
+    initial: 1500,
     started: false,
     breaktime: false
   },
