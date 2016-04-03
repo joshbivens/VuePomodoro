@@ -1,55 +1,30 @@
-new Vue({
-  el: "#app",
-  data: {
-    time: 1500,
-    initial: 1500,
-    started: false,
-    breaktime: false
-  },
-  filters: {
-    minutesAndSeconds() {
-      var minutes = Math.floor(this.time / 60);
-      var seconds = this.time - 60 * minutes;
+'use strict';
 
-      if (minutes < 10) {
-        minutes = "0" + Math.floor(this.time / 60);
-      } else if (minutes === 0) {
-        minutes = "00";
-      }
+const electron = require('electron');
+const app = electron.app;
+const BrowserWindow = electron.BrowserWindow;
 
-      if (seconds < 10) {
-        seconds = "0" + (this.time - 60 * minutes);
-      } else if (seconds === 0) {
-        seconds = "00"
-      }
+let mainWindow;
 
-      return minutes + ":" + seconds;
-    }
-  },
-  methods: {
-    start() {
-      this.interval = setInterval(() => {
-        this.time -= 1;
-        if (this.time === 0 && this.breaktime === false) {
-          this.started = false;
-          this.breaktime = true;
-          this.time = 300;
-          this.initial = 300;
-          clearInterval(this.interval);
-        } else if (this.time === 0 && this.breaktime === true) {
-          this.started = false;
-          this.breaktime = false;
-          this.time = 1500;
-          this.initial = 1500;
-          clearInterval(this.interval);
-        }
-      }, 1000);
-      this.started = true;
-    },
-    pause() {
-      clearInterval(this.interval);
-      this.started = false;
-    }
+function createWindow () {
+  mainWindow = new BrowserWindow({width: 500, height: 380});
+  mainWindow.loadURL('file://' + __dirname + '/index.html');
+
+  mainWindow.on('closed', function() {
+    mainWindow = null;
+  });
+}
+
+app.on('ready', createWindow);
+
+app.on('window-all-closed', function () {
+  if (process.platform !== 'darwin') {
+    app.quit();
   }
+});
 
-})
+app.on('activate', function () {
+  if (mainWindow === null) {
+    createWindow();
+  }
+});
